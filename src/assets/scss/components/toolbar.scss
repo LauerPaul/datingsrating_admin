@@ -1,0 +1,33 @@
+/* **
+*	Pinterest Bot - Admin Panel
+* 	Toolbar Component Scss
+*
+*   @author Pavel Lauer (front-end developer markline.agency)
+*   @copyright 2018©Markline.Agency
+*/
+.header-style {
+	color: $primary !important;
+
+	.v-icon,
+	.exit-btn {
+		color: white !important;
+	}
+
+	.exit-btn i {
+		margin-right: 4px;
+	}
+
+	.v-toolbar__title:not(:first-child) {
+		margin-left: 3px;
+	}
+
+	.site-logo {
+		margin-left: 12px;
+
+		.v-image__image--cover {
+			background-size: auto;
+			width: 204px;
+		}
+	}
+
+}

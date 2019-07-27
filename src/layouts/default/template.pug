@@ -1,0 +1,12 @@
+v-app(:class="[{isAuth : ''}, locationClass]")
+	vue-progress-bar
+	//- Боковая панель
+	navigation-drawer(v-if="isAuth")
+	//- Верхняя панель
+	toolbar(v-if="isAuth")
+	v-content
+		//- v-container(fill-height)
+		v-container(fluid)
+			router-view
+
+

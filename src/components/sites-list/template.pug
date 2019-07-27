@@ -1,0 +1,26 @@
+v-card(flat)
+	v-card-text
+		v-subheader Редактирование текстов на главной странице
+		v-container(grid-list-xl)
+			v-layout(wrap)
+				v-flex(xs12, sm12)
+					v-data-table.elevation-1(:headers="headers", :items="items", sort-by="id")
+
+						<template v-slot:top>
+							v-toolbar(flat, color="white")
+								v-btn.mb-2(color="primary", dark) Новый сайт
+						</template>
+
+						<template v-slot:item.action="{ item }">
+							v-icon.mr-2(small, @click="") edit
+							v-icon(small, @click="") delete
+						</template>
+
+						<template v-slot:no-data> Нет данных
+						</template>
+
+				v-flex(xs12, sm12)
+					.text-right
+						v-btn(color="green", dark, @click="sendForm")
+							v-icon(small) save
+							|&nbsp;СОХРАНИТЬ

@@ -1,0 +1,43 @@
+div
+	v-card(flat)
+		v-card-text
+			v-subheader Редактирование баннера
+
+			v-container(grid-list-xl)
+				v-layout(wrap)
+					v-flex(xs12, sm8)
+						v-textarea(v-model="titleVal",
+						label="Заголовок H1",
+						outlined,
+						clearable,
+						v-on:keydown.enter="brSet('titleVal')", :loading="!titleVal")
+
+
+						v-textarea(v-model="textVal",
+						label="Текст под заголовком",
+						outlined, v-on:keydown.enter="brSet('textVal')", clearable, :loading="!textVal")
+
+					v-flex(xs12, sm4)
+						v-card
+							v-img(:src="imageVal", width="100%", @click="preview=true")
+
+							v-card-actions.justify-center
+								v-btn.white--text(color="primary", fab, icon, small, title="Просмотр", @click="preview=true")
+									v-icon zoom_in
+								v-btn.white--text(color="green", fab, icon, small, title="Загрузить", @click="$refs.file.click()")
+									v-icon cloud_upload
+								
+								input(v-on:change="imageNewSet($event)", ref="file", type="file", accept="image/jpeg,image/png,image/gif", style="display: none")
+			
+				v-flex(xs12, sm12)
+					.text-right
+						v-btn(color="green", dark, @click="sendForm")
+							v-icon(small) save
+							|&nbsp;СОХРАНИТЬ
+
+	.text-center
+		v-dialog(v-model="preview")
+			v-card
+				.text-center
+					img(:src="imageVal", style="max-width: 100%")
+

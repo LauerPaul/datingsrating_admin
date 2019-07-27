@@ -1,0 +1,75 @@
+/* **
+*	Pinterest Bot - Admin Panel
+* 	Auth Page Scss
+*
+*   @author Pavel Lauer (front-end developer markline.agency)
+*   @copyright 2018©Markline.Agency
+*/
+
+.v-application.login {
+    background: $primary;
+    
+    .wrapper {
+        min-height: calc(100vh - 50px);
+
+        .v-image__image--cover {
+            background-size: auto;
+        }
+    }
+
+    .button {
+        margin-top: 32px;
+        display: inline-block;
+        width: 200px;
+        padding: 0 16px;
+        line-height: 50px;
+        vertical-align: middle;
+        text-align: center;
+        outline: 0;
+        font-weight: 500;
+        font-size: 14px;
+        position: relative;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 2px;
+        color: white;
+        animation-name: snake;
+        animation-duration: 45s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        transition: all 200ms cubic-bezier(.5,.15,.25,.9);
+        stroke-dasharray: 120 120 48 196;
+        cursor: pointer;
+        
+        &--red {
+            background-color: $secondary;
+        }
+        
+        &__border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        &__label {
+            position: relative;
+        }
+        
+        &:hover {
+            color: #fff;
+            stroke-dasharray: 244 0 240 0;
+        }
+    }
+
+    @keyframes snake {
+        0%{stroke-dashoffset: -220}
+        100%{stroke-dashoffset: -704}
+    }
+
+    @keyframes nodes {
+        0% {stroke-dashoffset: 6000}
+        100% {stroke-dashoffset: -6000}
+    }
+}

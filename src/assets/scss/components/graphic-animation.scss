@@ -1,0 +1,26 @@
+/* **
+*   Pinterest Bot - Admin Panel
+*   Component Graphic Animation Scss
+*
+*   @author Pavel Lauer (front-end developer markline.agency)
+*   @copyright 2018©Markline.Agency
+*/
+
+.background {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    max-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+        
+    &__path {
+        stroke-dasharray: 20 780;
+        animation-name: nodes;
+        animation-duration: 180s;
+        animation-easing-function: linear;
+        animation-iteration-count: infinite;
+    }
+}

@@ -1,0 +1,61 @@
+v-card(flat)
+	v-card-text
+		v-subheader Редактирование SEO-данных страницы
+		v-container(grid-list-xl)
+			v-layout(wrap)
+				v-flex(xs12, sm12)
+					v-text-field(v-model="form.title",
+					label="Title",
+					outlined, :loading="!form.title && form.title !== ''")
+					
+					v-textarea(v-model="form.description",
+					label="Description",
+					outlined, :loading="!form.description && form.description !== ''")
+
+					v-select(:items="indexingList", outlined, label="Правила meta robots", v-model="form.robots")
+
+		v-subheader Редактирование Open Graph страницы
+		v-container(grid-list-xl)
+			v-layout(wrap)
+				v-flex(xs12, sm8)
+					v-textarea(v-model="form.og_title",
+					label="Og Title",
+					outlined, :loading="!form.og_title && form.og_title !== ''")
+
+					v-textarea(v-model="form.og_description",
+					label="Og Description",
+					outlined, :loading="!form.og_description && form.og_description !== ''")
+
+				v-flex(xs12, sm4)
+					v-card
+						v-img(:src="imageVal", width="100%", @click="preview=true")
+
+						v-card-actions.justify-center
+							v-btn.white--text(color="primary", fab, icon, small, title="Просмотр", @click="preview=true")
+								v-icon zoom_in
+							v-btn.white--text(color="green", fab, icon, small, title="Загрузить", @click="$refs.file.click()")
+								v-icon cloud_upload
+							v-btn.white--text(color="red", fab, icon, small, title="Очистить", @click="ogImageClear")
+								v-icon delete
+							
+							input(v-on:change="imageNewSet($event)", ref="file", type="file", accept="image/jpeg,image/png,image/gif", style="display: none")
+
+		v-subheader Микроразметка страницы
+		v-container(grid-list-xl)
+			v-layout(wrap)
+				v-flex(xs12, sm12)
+					v-textarea(v-model="form.micro_markup",
+					label="Микроразметка",
+					outlined, :loading="!form.micro_markup && form.micro_markup !== ''")
+
+				v-flex(xs12, sm12)
+					.text-right
+						v-btn(color="green", dark, @click="sendForm")
+							v-icon(small) save
+							|&nbsp;СОХРАНИТЬ
+
+	.text-center
+		v-dialog(v-model="preview")
+			v-card
+				.text-center
+					img(:src="imageVal", style="max-width: 100%")

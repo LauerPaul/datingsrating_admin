@@ -1,0 +1,8 @@
+v-app-bar.header-style(color='blue darken-3', dense, fixed, app, :clipped-left="true")
+	v-app-bar-nav-icon(@click.event.stop='toggleDrawer')
+	v-img.site-logo(:src="logo", max-height="32")
+	v-spacer
+	v-layout(row, align-center, style='max-width: 106px')
+		v-btn.exit-btn(color="error", small, @click.event.stop="userLogout", text)
+			v-icon(dark, @click.stop='toggleDrawer') exit_to_app
+			|Выход

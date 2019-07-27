@@ -1,0 +1,21 @@
+v-card(flat)
+	v-card-text
+		v-subheader Редактирование текстов на главной странице
+		v-container(grid-list-xl)
+			v-layout(wrap)
+				v-flex(xs12, sm12)
+					v-expansion-panels(popout)
+						v-expansion-panel(v-if="keys && inputs", v-for="(item, i) in keys", :key="i")
+							v-expansion-panel-header {{item.name}}
+							v-expansion-panel-content
+								v-textarea(v-for="(el, ind) in item.items", :key="ind",
+									v-model="inputs[el]",
+									:label="setLabel(el)",
+									filled, v-on:keydown.enter="brSet('inputs[el]')", clearable, :loading="!inputs[el]")
+
+
+				v-flex(xs12, sm12)
+					.text-right
+						v-btn(color="green", dark, @click="sendForm")
+							v-icon(small) save
+							|&nbsp;СОХРАНИТЬ

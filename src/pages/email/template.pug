@@ -1,0 +1,7 @@
+.email-page-wrapper
+	
+
+	v-snackbar(v-model="snackbar", :bottom="true", :timeout="6000", :color="snackbarStatus", :multi-line="true")
+		strong {{ message }}
+		v-btn(color="white", @click="snackbar = false", fab, icon, small)
+			v-icon close

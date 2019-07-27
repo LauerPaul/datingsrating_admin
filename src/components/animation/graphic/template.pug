@@ -1,0 +1,12 @@
+.graphic-animation-wrapper
+	svg(viewBox='0 0 200 50', style='display: none;')
+		symbol#snake
+			path(fill='none', stroke='rgba(255, 255, 255, 0.4)', stroke-width='1', stroke-dasharray='500 0', d='m2 2h196v46h-196z')
+			path.button__snake(fill='none', stroke='#fff', stroke-width='2', d='m2 2h196v46h-196z')
+	svg.background(viewBox='0 0 1500 1000')
+		path(fill='none', :stroke='colorLine', stroke-width='1', :d='anchorLineA')
+		path(fill='none', :stroke='colorLine', stroke-width='1', :d='anchorLineB')
+		path(fill='none', :stroke='colorLine', stroke-width='1', :d='anchorLineC')
+		path(fill='none', :stroke='colorLine', stroke-width='1', :d='anchorLineD')
+		path(fill='none', :stroke='colorLine', stroke-width='1', :d='floatPoints')
+		path.background__path(fill='none', :stroke='colorLine', stroke-width='2', :d='floatPoints')

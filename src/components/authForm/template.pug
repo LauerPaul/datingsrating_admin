@@ -1,0 +1,21 @@
+.auth-form
+	v-card
+		v-img(:src="logo", height="100", sizes="contain")
+		v-container(style="padding-top: 0px")
+			v-form(lazy-validation, style="text-align: center;")
+
+				v-text-field(v-model="login", :label="text.loginLabel", required, v-validate="'required'", :error-messages="errors.collect('name')", data-vv-name="name")
+
+				v-text-field(v-model="pass", :label="text.passLabel", required, type="password",  v-validate="'required'", :error-messages="errors.collect('password')", data-vv-name="password")
+
+				a.button.button--red(@click.prevent.stop="beforeSubmit")
+					svg.button__border
+						use(xlink:href='#snake')
+					span.button__label {{ text.nextBtn }}
+
+				.auth-form-footer {{ text.footer }}
+
+	v-snackbar(v-model="snackbar", :bottom="true", :timeout="6000", color="white")
+		span(style="color: red")
+			strong {{ message }}
+		//- v-btn(color="primary", flat, @click="snackbar = false") Закрыть

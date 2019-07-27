@@ -1,0 +1,13 @@
+v-navigation-drawer(:value='drawer', app, clipped, fixed)
+	v-subheader.mt-3.grey--text.text--darken-1 МЕНЮ
+	v-list(dense)
+		v-list-item(v-for='item in items', :key='item.id', :to="{'name': item.linkName}", exact)
+			v-list-item-icon
+				v-icon {{ item.icon }}
+			v-list-item-title {{ item.text }}
+	v-divider(style="margin: 12px 0;")
+	v-list(dense)
+		v-list-item
+			v-list-item-icon
+				v-icon(color='grey darken-1') settings
+			v-list-item-title.grey--text.text--darken-1 Параметры
