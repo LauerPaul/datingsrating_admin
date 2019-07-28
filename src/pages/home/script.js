@@ -57,7 +57,7 @@ const methods = {
 	async getPageData () {
 		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('page \'@/pages/home\' -> method init');
 		this.$Progress.start()
-		let req = await service.getHomePageParams()
+		let req = await service.home.getHomePageParams()
 
 		if (req.status == 200 && req.data.id) {
 			this.form = req.data
@@ -77,8 +77,8 @@ const methods = {
 		this.$Progress.start()
 		let req = null
 
-		if (content == 'content') req = await service.setHomePageContent(data)
-		else req = await service.setHomePageParams(data)
+		if (content == 'content') req = await service.home.setHomePageContent(data)
+		else req = await service.home.setHomePageParams(data)
 
 		if (req.status == 200 && req.data.status == 'OK') {
             this.message = 'Данные успешно сохранены'

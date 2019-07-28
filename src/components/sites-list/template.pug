@@ -1,26 +1,29 @@
 v-card(flat)
 	v-card-text
 		v-subheader Редактирование текстов на главной странице
+
 		v-container(grid-list-xl)
 			v-layout(wrap)
 				v-flex(xs12, sm12)
-					v-data-table.elevation-1(:headers="headers", :items="items", sort-by="id")
+					v-data-table.elevation-1(v-if="items", :headers="headers", :items="items", sort-by="id")
 
-						<template v-slot:top>
-							v-toolbar(flat, color="white")
-								v-btn.mb-2(color="primary", dark) Новый сайт
+						<template v-slot:item.rate="{ item }">
+							v-chip(:color="getColor(rateCalc(item))", dark) {{ rateCalc(item) }}
 						</template>
-
+						<template v-slot:item.logo="{ item }">
+							a(:href="item.url", target="_blank", style="text-decoration: none;")
+								img(v-if="item.logo", :src="$root.domain + item.logo", alt="item.name", style="max-width: 40px;")
+								span(v-else) No image
+						</template>
+						<template v-slot:item.active="props">
+							v-switch.ma-4(v-model="props.item.active", @change
+							="itemStatusToggle(props)")
+						</template>
 						<template v-slot:item.action="{ item }">
-							v-icon.mr-2(small, @click="") edit
-							v-icon(small, @click="") delete
+							v-btn(icon, small, :to="{ name: 'site', params: { id: item.id }}", style="text-decoration:none;")
+								v-icon(color="primary") edit
+							v-btn(icon, small, style="text-decoration:none;")
+								v-icon(medium, color="error") delete
 						</template>
 
-						<template v-slot:no-data> Нет данных
-						</template>
-
-				v-flex(xs12, sm12)
-					.text-right
-						v-btn(color="green", dark, @click="sendForm")
-							v-icon(small) save
-							|&nbsp;СОХРАНИТЬ
+						<template v-slot:no-data>Нет данных</template>

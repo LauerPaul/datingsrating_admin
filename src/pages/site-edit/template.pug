@@ -1,14 +1,11 @@
 .sites-page-wrapper
 	v-card
 		v-toolbar(flat)
-			v-toolbar-title Список сайтов
+			v-toolbar-title Редактирование сайта
 			v-spacer
-			v-btn.ma-2(outlined, color="primary", medium, @click="newSite")
-				v-icon add
-				|&nbsp;Добавить
 
-		sitesList(:items="items", @statusToggle="itemStatusToggle")
-
+		v-card-text
+			site-edit-component(:item="item")
 
 
 	v-snackbar(v-model="snackbar", :bottom="true", :timeout="6000", :color="snackbarStatus", :multi-line="true")

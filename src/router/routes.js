@@ -10,6 +10,7 @@ import notFound from '@/pages/404'
 import home from '@/pages/home'
 import email from '@/pages/email'
 import sites from '@/pages/sites'
+import site from '@/pages/site-edit'
 
 const routes = [
 	{	
@@ -47,6 +48,18 @@ const routes = [
         meta: {
             isAuth: true,
         },
+	},
+	{
+		path: '/site',
+		component: site,
+		redirect: 'sites',
+        children: [
+        	{
+				path: ':id',
+				name: 'site',
+				component: site
+			}
+		]
 	},
 	/* Web-серверные ошибки и сообщения */
 	{

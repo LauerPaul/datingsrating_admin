@@ -12,6 +12,19 @@ import service from '@/services/appServices'
 
 const data = () => {
 	return {
+		headers: [
+			{
+				text: 'ID',
+				align: 'left',
+				sortable: true,
+				value: 'id',
+			},
+			{ text: 'Name', sortable: true, value: 'name' },
+			{ text: 'Logo', sortable: false, value: 'logo' },
+			{ text: 'Rate', sortable: false, value: 'rate' },
+			{ text: 'Active', value: 'active' },
+			{ text: 'Action', sortable: false, align: 'right', value: 'action' },
+		],
 		form: null,
     }
 }
@@ -19,35 +32,34 @@ const data = () => {
 const methods = {
 	setData () {
 		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('component \'@/components/sites-list\' -> method init');
-		
-		this.form = {}
-
-		for(let item of this.content) {
-			this.inputs[item.name] = item.text
-		}
+		this.form = this.items
+		for(let item in this.form) this.form[item].active = parseInt(this.form[item].active) ? true : false
 	},
 
-	async sendForm () {
-		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('component \'@/components/banner-edit\' -> method init');
-		// let data = null
-		// let posts = []
-
-		// for(let item in this.inputs) {
-		// 	let element = null
-
-		// 	this.content.filter(el => {
-		// 		if (el.name === item) {
-		// 			element = el
-		// 			element.text = this.inputs[item]
-		// 			posts.push(element)
-		// 		}
-		// 	})
-		// }
-
-		// data = await service.formData(posts, false)
-
-		// this.$emit('submit_form', data, 'content')
+	getColor (rate) {
+		if(!rate) return 'transparent'
+		else if (parseInt(rate) >= 8) return 'green'
+		else if (parseInt(rate) >= 5.5) return 'orange'
+		else return 'red'
 	},
+ 
+	rateCalc (item) {
+		if(!item) return 0
+		return Math.round(((parseInt(item.er_ease_use) +
+				parseInt(item.er_services_support) +
+				parseInt(item.er_number_members) +
+				parseInt(item.er_quality_profiles) +
+				parseInt(item.er_safety_antiscam) +
+				parseInt(item.er_value_money) +
+				parseInt(item.er_features) +
+				parseInt(item.er_functionality))/8)*10)/10
+	},
+
+	itemStatusToggle (props) {
+		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('component \'@/components/sites-list\' -> method init');
+		if(!props) return 0
+		this.$emit('statusToggle', props.item)
+	}
 }
 
 export default {
@@ -67,5 +79,6 @@ export default {
 	},
 	methods: methods,
 	watch: {
+		items () { this.setData() }
 	}
 }

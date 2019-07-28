@@ -1,0 +1,75 @@
+import axios from 'axios'
+
+export default {
+	/**
+	*   Запрос списка сайтов
+	*   @method getSites
+	*   @return {object} - результат
+	**/
+	getSites () {
+		return axios({
+				url: '/sites/get_sites/',
+				method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                responseType: 'json',
+				data: {}
+		})
+	},
+
+	/**
+	*   Запрос списка сайтов
+	*   @method getSites
+	*   @return {object} - результат
+	**/
+	getSite (id) {
+		return axios({
+				url: '/sites/get_site/'+id,
+				method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                responseType: 'json'
+		})
+	},
+
+	/**
+	*   Запрос переключения статуса активности сайта
+	*   @method siteStatusToggle
+	*   @return {object} - результат
+	**/
+	siteStatusToggle (data) {
+		return axios({
+				url: '/admin/sites/active_site/',
+				method: 'POST',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+					'Content-Type': 'multipart/form-data'
+                },
+                responseType: 'json',
+				data: data
+		})
+	},
+
+	/**
+	*   Добавить новый сайт
+	*   @method addNewSite
+	*   @return {object} - результат
+	**/
+	addNewSite () {
+		return axios({
+				url: '/admin/sites/add_site/',
+				method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+					'Content-Type': 'multipart/form-data'
+                },
+                responseType: 'json',
+		})
+	},
+}
