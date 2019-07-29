@@ -1,0 +1,11 @@
+v-container(grid-list-xl, v-if="rating")
+	v-layout(wrap)
+		v-flex(xs12, sm6, v-for="(item, key) in rating", v-if="key !== 'id' && labels[key]", :key="key")
+			v-subheader {{ labels[key] }}
+			v-slider.align-center(v-model="rating[key]", :max="max", :min="min", hide-details)
+				<template v-slot:append>
+					v-text-field.mt-0.pt-0(v-model="rating[key]", hide-details, single-line, type="number", style="width: 32px;", :max="max", :min="min")
+				</template>
+			br
+			v-textarea(v-model="rateText['text_'+key]",
+				label="Описание", outlined, v-on:keydown.enter="rateText['text_'+key] += '<br>'")

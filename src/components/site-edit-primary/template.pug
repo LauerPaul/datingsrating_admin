@@ -1,0 +1,32 @@
+div(v-if="form")
+	v-container(grid-list-xl)
+		v-layout(wrap)
+			v-flex(xs12, sm9)
+				v-text-field(v-model="form.name", label="Название", required)
+				v-text-field(v-model="form.url", label="Ссылка", required)
+				v-textarea(v-model="form.mini_description",
+					label="Краткое описание",
+					outlined, v-on:keydown.enter="form.mini_description += '<br>'")
+			
+			v-flex(xs12, sm3)
+				v-card
+					v-img(:src="imageVal", width="100%", @click="preview=true")
+
+					v-card-actions.justify-center
+						v-btn.white--text(color="primary", fab, icon, small, title="Просмотр", @click="preview=true")
+							v-icon zoom_in
+						v-btn.white--text(color="green", fab, icon, small, title="Загрузить", @click="$refs.file.click()")
+							v-icon cloud_upload
+						
+						input(v-on:change="imageNewSet($event)", ref="file", type="file", accept="image/jpeg,image/png,image/gif", style="display: none")
+
+			v-flex(xs12, sm12)
+				v-textarea(v-model="form.description",
+					label="Описание",outlined, v-on:keydown.enter="form.description += '<br>'")
+				v-switch(v-model="active", label="Страница видна на сайте")
+
+	.text-center
+		v-dialog(v-model="preview")
+			v-card
+				.text-center
+					img(:src="imageVal", style="max-width: 100%")

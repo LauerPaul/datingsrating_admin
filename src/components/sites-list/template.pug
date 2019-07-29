@@ -8,7 +8,7 @@ v-card(flat)
 					v-data-table.elevation-1(v-if="items", :headers="headers", :items="items", sort-by="id")
 
 						<template v-slot:item.rate="{ item }">
-							v-chip(:color="getColor(rateCalc(item))", dark) {{ rateCalc(item) }}
+							v-chip(:color="getColor(item.rate_count)", dark) {{ item.rate_count }}
 						</template>
 						<template v-slot:item.logo="{ item }">
 							a(:href="item.url", target="_blank", style="text-decoration: none;")
@@ -22,7 +22,7 @@ v-card(flat)
 						<template v-slot:item.action="{ item }">
 							v-btn(icon, small, :to="{ name: 'site', params: { id: item.id }}", style="text-decoration:none;")
 								v-icon(color="primary") edit
-							v-btn(icon, small, style="text-decoration:none;")
+							v-btn(icon, small, style="text-decoration:none;", @click="removeItem(item)")
 								v-icon(medium, color="error") delete
 						</template>
 

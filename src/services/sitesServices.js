@@ -20,7 +20,7 @@ export default {
 	},
 
 	/**
-	*   Запрос списка сайтов
+	*   Запрос сайта
 	*   @method getSites
 	*   @return {object} - результат
 	**/
@@ -70,6 +70,44 @@ export default {
 					'Content-Type': 'multipart/form-data'
                 },
                 responseType: 'json',
+		})
+	},
+
+	/**
+	*   Удалить сайт
+	*   @method removeSite
+	*   @return {object} - результат
+	**/
+	removeSite (data) {
+		return axios({
+				url: '/admin/sites/remove_site/',
+				method: 'POST',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+					'Content-Type': 'multipart/form-data'
+                },
+                responseType: 'json',
+                data: data
+		})
+	},
+
+	/**
+	*   Обновить сайт
+	*   @method updateSite
+	*   @return {object} - результат
+	**/
+	updateSite (data) {
+		return axios({
+				url: '/admin/sites/update_site/',
+				method: 'POST',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+					'Content-Type': 'multipart/form-data'
+                },
+                responseType: 'json',
+                data: data
 		})
 	},
 }

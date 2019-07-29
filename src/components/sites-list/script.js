@@ -42,23 +42,17 @@ const methods = {
 		else if (parseInt(rate) >= 5.5) return 'orange'
 		else return 'red'
 	},
- 
-	rateCalc (item) {
-		if(!item) return 0
-		return Math.round(((parseInt(item.er_ease_use) +
-				parseInt(item.er_services_support) +
-				parseInt(item.er_number_members) +
-				parseInt(item.er_quality_profiles) +
-				parseInt(item.er_safety_antiscam) +
-				parseInt(item.er_value_money) +
-				parseInt(item.er_features) +
-				parseInt(item.er_functionality))/8)*10)/10
-	},
 
 	itemStatusToggle (props) {
 		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('component \'@/components/sites-list\' -> method init');
 		if(!props) return 0
 		this.$emit('statusToggle', props.item)
+	},
+
+	removeItem (item) {
+		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('component \'@/components/sites-list\' -> method init');
+		if(!item) return 0
+		this.$emit('removeItem', item)
 	}
 }
 

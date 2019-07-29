@@ -1,12 +1,45 @@
 .sites-page-wrapper
-	v-card
+	v-card(v-if="item")
 		v-toolbar(flat)
 			v-toolbar-title Редактирование сайта
+			v-subheader ({{ item.name }} - ID {{ item.id }})
 			v-spacer
 
-		v-card-text
-			site-edit-component(:item="item")
+		v-tabs
+			v-tab
+				v-icon(left) settings
+				|Основное
+			v-tab
+				v-icon(left) photo_library
+				|Скрины
+			v-tab
+				v-icon(left) star_half
+				|Рейтинг
+				span(v-if="rate") &nbsp;({{ rate }})
 
+			v-tab-item
+				v-card-text
+					site-edit-primary(:item="itemPrimary", @sendData="setForm")
+
+			v-tab-item
+				v-card-text
+
+			v-tab-item
+				v-card-text
+					site-edit-rate(:rate="item.rate", :text="item.rate_text", @rateUpdate="setRate", @sendData="setForm")
+
+
+		v-card-text
+			v-container(grid-list-xl)
+				v-layout(wrap)
+					v-flex(xs12, sm12)
+						.text-right
+							v-btn(color="error", dark, :to="{name: 'sites'}", style="margin-right: 16px;")
+								|&nbsp;ОТМЕНА
+
+							v-btn(color="green", dark, @click.prevent.stop="sendForm")
+								v-icon(small) save
+								|&nbsp;СОХРАНИТЬ
 
 	v-snackbar(v-model="snackbar", :bottom="true", :timeout="6000", :color="snackbarStatus", :multi-line="true")
 		strong {{ message }}

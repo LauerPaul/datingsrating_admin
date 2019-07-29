@@ -82,7 +82,26 @@ const methods = {
 
 		if (req.status == 200 && req.data.status == 'OK') this.$router.push({ name: 'site', params: { id: req.data.data } })
         else {
-            this.message = 'Ошибка сохранения данных - ' + req.data.data
+            this.message = 'Ошибка при создании новой записи'
+            this.snackbarStatus = 'error'
+            this.snackbar = true
+            this.$log.error('page \'@/pages/sites\' -> post req error')
+        }
+		
+		this.$Progress.finish()
+	},
+
+	async removeItem (item) {
+		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('component \'@/components/sites-list\' -> method init');
+		if(!item) return 0
+		this.$Progress.start()
+		
+		let data_ = service.formData(item, false)
+		const req = await service.sites.removeSite(data_)
+		
+		if (req.status == 200 && req.data.status == 'OK') this.getPageData()
+        else {
+            this.message = 'Ошибка при попытке удалить данные - ' + req.data.data
             this.snackbarStatus = 'error'
             this.snackbar = true
             this.$log.error('page \'@/pages/sites\' -> post req error')
