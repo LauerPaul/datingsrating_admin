@@ -16,6 +16,8 @@ const data = () => {
 			id: 0,
 			title: '',
 			description: '',
+			url: '',
+			urlID: '',
 
 			og_title: '',
 			og_description: '',
@@ -45,6 +47,8 @@ const methods = {
 		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('component \'@/components/seo-edit\' -> method init');
 		this.form.id = this.seo.id
 		this.form.title = this.seo.title
+		this.form.url = this.seo.url
+		this.form.urlID = this.seo.urlID
 		this.form.description = this.seo.description
 		this.form.og_title = this.seo.og_title
 		this.form.og_description = this.seo.og_description
@@ -91,7 +95,7 @@ export default {
 	data: data,
 	computed: {
 	},
-	props: ['seo'],
+	props: ['seo', 'descs', 'url_input'],
 	/**
 	* @desc ▶ Hook reporting <br>
 	* <strong style="color:red; font-size: 18px;">ⓘ</strong>
@@ -103,8 +107,12 @@ export default {
 	},
 	methods: methods,
 	watch: {
-		seo () {
-			this.setData()
+		seo: {
+			handler(val){
+				this.setData()
+				console.log('test watch seo');
+			},
+			deep: true
 		}
 	}
 }

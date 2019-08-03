@@ -2,7 +2,7 @@ div(v-if="form")
 	v-container(grid-list-xl)
 		v-layout(wrap)
 			v-flex(xs12, sm9)
-				v-text-field(v-model="form.name", label="Название", required)
+				v-text-field(v-model="form.name", label="Название", required, @keyup="transliteration(form.name)")
 				v-text-field(v-model="form.url", label="Ссылка", required)
 				v-textarea(v-model="form.mini_description",
 					label="Краткое описание",

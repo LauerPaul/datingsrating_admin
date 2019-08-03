@@ -1,13 +1,18 @@
-v-card(flat)
+v-card(flat, v-if="seo")
 	v-card-text
 		v-subheader Редактирование SEO-данных страницы
 		v-container(grid-list-xl)
 			v-layout(wrap)
 				v-flex(xs12, sm12)
+					v-text-field(v-if="url_input", v-model="form.url",
+					label="url",
+					outlined, :loading="!form.title && form.title !== ''")
+					div.text-right(v-if="descs && descs.title") {{ descs.title }}
 					v-text-field(v-model="form.title",
 					label="Title",
 					outlined, :loading="!form.title && form.title !== ''")
-					
+
+					div.text-right(v-if="descs && descs.description") {{ descs.description }}
 					v-textarea(v-model="form.description",
 					label="Description",
 					outlined, :loading="!form.description && form.description !== ''")
@@ -18,10 +23,12 @@ v-card(flat)
 		v-container(grid-list-xl)
 			v-layout(wrap)
 				v-flex(xs12, sm8)
+					div.text-right(v-if="descs && descs.og_title") {{ descs.og_title }}
 					v-textarea(v-model="form.og_title",
 					label="Og Title",
 					outlined, :loading="!form.og_title && form.og_title !== ''")
 
+					div.text-right(v-if="descs && descs.og_description") {{ descs.og_description }}
 					v-textarea(v-model="form.og_description",
 					label="Og Description",
 					outlined, :loading="!form.og_description && form.og_description !== ''")
@@ -44,6 +51,7 @@ v-card(flat)
 		v-container(grid-list-xl)
 			v-layout(wrap)
 				v-flex(xs12, sm12)
+					div.text-right(v-if="descs && descs.micro_markup") {{ descs.micro_markup }}
 					v-textarea(v-model="form.micro_markup",
 					label="Микроразметка",
 					outlined, :loading="!form.micro_markup && form.micro_markup !== ''")

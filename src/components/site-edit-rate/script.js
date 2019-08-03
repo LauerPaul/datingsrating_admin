@@ -62,6 +62,7 @@ export default {
 	},
 	created () {
 		this.$root.$on('siteEditSend', this.submitForm);
+		this.$emit('componentReady', 'rate')
 	},
 	methods: methods,
 	watch: {

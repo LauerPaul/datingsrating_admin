@@ -7,9 +7,9 @@
 *   @author Pavel Lauer (front-end developer markline.agency)
 *   @copyright 2018©Markline.Agency
 */
-
 import service from '@/services/appServices'
 import sitesList from '@/components/sites-list'
+import seoEdit from '@/components/seo-edit'
 
 const data = () => {
 	return {
@@ -19,7 +19,28 @@ const data = () => {
         snackbar: false,
         message: '',
         snackbarStatus: 'success',
-        items: null
+        items: null,
+		currentMenu: 'section-list',
+		seo: null,
+        tabs: [
+			{
+				name: 'Сайты',
+				icon: 'list',
+				href: 'list'
+			},
+			{
+				name: 'SEO',
+				icon: 'trending_up',
+				href: 'seo'
+			},
+		],
+		seoDescs: {
+			title: '%item_name% - подставить имя сайта',
+			description: '%item_name% - подставить имя сайта',
+			og_title: '%item_name% - подставить имя сайта',
+			og_description: '%item_name% - подставить имя сайта',
+			micro_markup:  '%item_name% - подставить имя сайта',
+		}
 	}
 }
 
@@ -31,6 +52,46 @@ const methods = {
 
 		if (req.status == 200 && req.data.status == 'OK') {
 			this.items = req.data.data
+        } else {
+            this.message = 'Ошибка загрузки данных'
+            this.snackbarStatus = 'error'
+            this.snackbar = true
+            this.$log.error('page \'@/pages/sites\' -> post req error')
+        }
+
+		this.$Progress.finish()
+		this.getPageSeoData()
+	},
+
+	async getPageSeoData () {
+		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('page \'@/pages/sites\' -> method init');
+		this.$Progress.start()
+		let req = await service.sites.getSitesSeo()
+
+		if (req.status == 200 && req.data.status == 'OK') {
+			this.seo = req.data.data
+        } else {
+            this.message = 'Ошибка загрузки данных'
+            this.snackbarStatus = 'error'
+            this.snackbar = true
+            this.$log.error('page \'@/pages/sites\' -> post req error')
+        }
+
+		this.$Progress.finish()
+	},
+
+	async updateSitesSeo (item) {
+		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('page \'@/pages/sites\' -> method init');
+		if(!item) return 0
+
+		this.$Progress.start()
+		let req = await service.sites.updateSitesSeo(item)
+
+		if (req.status == 200 && req.data.status == 'OK') {
+            this.message = 'SEO данные обновлены'
+            this.snackbarStatus = 'success'
+            this.snackbar = true
+            this.getPageSeoData()
         } else {
             this.message = 'Ошибка загрузки данных'
             this.snackbarStatus = 'error'
@@ -68,7 +129,7 @@ const methods = {
 			}
         } else {
             this.$log.error('page \'@/pages/sites\' -> post req error')
-            this.message = 'Ошибка загрузки данных'
+            this.message = 'Ошибка обновления данных'
             this.snackbarStatus = 'error'
 			this.snackbar = true
 			this.$Progress.finish()
@@ -128,6 +189,7 @@ export default {
 	* This page requires the components:<br>
 	*/
 	components: {
+		seoEdit,
 		sitesList
 	},
 	/**

@@ -20,6 +20,41 @@ export default {
 	},
 
 	/**
+	*   Запрос списка сайтов
+	*   @method getSitesSeo
+	*   @return {object} - результат
+	**/
+	getSitesSeo () {
+		return axios({
+			url: '/sites/get_sites_seo/',
+			method: 'GET',
+			withCredentials: true,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			responseType: 'json',
+		})
+	},
+
+	/**
+	*   Запрос списка сайтов
+	*   @method updateSitesSeo
+	*   @return {object} - результат
+	**/
+	updateSitesSeo (data) {
+		return axios({
+			url: '/sites/update_sites_seo/',
+			method: 'POST',
+			withCredentials: true,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			responseType: 'json',
+			data: data
+		})
+	},
+
+	/**
 	*   Запрос сайта
 	*   @method getSites
 	*   @return {object} - результат
