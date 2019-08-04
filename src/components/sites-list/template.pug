@@ -1,4 +1,4 @@
-v-card(flat)
+v-card(flat, v-if="items")
 	v-card-text
 		v-subheader Редактирование текстов на главной странице
 
@@ -27,3 +27,6 @@ v-card(flat)
 						</template>
 
 						<template v-slot:no-data>Нет данных</template>
+
+v-overlay(v-else, :value="!items")
+	v-progress-circular(indeterminate, size="64")

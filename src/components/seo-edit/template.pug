@@ -67,3 +67,6 @@ v-card(flat, v-if="seo")
 			v-card
 				.text-center
 					img(:src="imageVal", style="max-width: 100%")
+						
+v-overlay(v-else, :value="!seo")
+	v-progress-circular(indeterminate, size="64")

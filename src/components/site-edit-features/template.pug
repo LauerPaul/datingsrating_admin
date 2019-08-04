@@ -1,0 +1,8 @@
+div(v-if="form && keys")
+	v-container(grid-list-xl)
+		v-layout(wrap)
+			v-flex(xs12, sm4, v-for="(key, index) in keys", :key="key.id", :style="!parseInt(key.active)?'opacity:0.64;':''")
+				v-switch.ma-4(v-model="form[key.id]", :label="key.name")
+
+v-overlay(v-else, :value="!keys")
+	v-progress-circular(indeterminate, size="64")

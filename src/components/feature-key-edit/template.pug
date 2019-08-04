@@ -1,0 +1,19 @@
+v-card(flat, v-if="form")
+	v-card-title
+		v-toolbar-title Редактирование ключа списка "FEATURES"
+		v-spacer
+
+	v-card-text
+		v-container(grid-list-xl)
+			v-layout(wrap)
+				v-flex(xs12, sm12)
+					v-text-field(v-model="form.name", label="Название поля (текст)", filled, counter, minlength="4", maxlength="250", :rules="rulesName")
+					v-switch.ma-4(v-model="form.active", :label="form.active ? 'Будет показан на сайте' : 'Не отображен на сайте'")
+
+	v-card-actions
+		v-spacer
+		v-btn(color="red darken-1", text, @click="$emit('close')") Отмена
+		v-btn(color="green darken-1", text, @click="saveItem", :disabled="!btnDisabled") Сохранить
+
+v-overlay(v-else, :value="!form")
+	v-progress-circular(indeterminate, size="64")

@@ -12,6 +12,7 @@ import service from '@/services/appServices'
 import siteEditPrimary from '@/components/site-edit-primary'
 import siteEditRate from '@/components/site-edit-rate'
 import siteEditScreens from '@/components/site-edit-screens'
+import siteEditFeatures from '@/components/site-edit-features'
 import seoEdit from '@/components/seo-edit'
 
 const data = () => {
@@ -26,9 +27,11 @@ const data = () => {
         rate: null,
         posts: null,
         images: false,
+        features: null,
         components_status: {
         	primary: true,
         	screens: true,
+        	features: true,
         	rate: true
         },
         currentMenu: 'section-config',
@@ -53,6 +56,7 @@ const methods = {
 		this.$Progress.start()
 
 		let req = await service.sites.getSite(this.$route.params.id)
+		console.log(req);
 
 		if (req.status == 200 && req.data.status == 'OK') {
 			this.item = req.data.data
@@ -69,7 +73,25 @@ const methods = {
 		this.$Progress.finish()
 	},
 
+	async getFeaturesKeys () {
+		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('page \'@/pages/site-edit\' -> method init');
+		this.$Progress.start()
+		let req = await service.sites.getFeaturesKeys()
+
+		if (req.status == 200 && req.data.status == 'OK') {
+			this.features = req.data.data
+        } else {
+            this.message = 'Ошибка загрузки данных'
+            this.snackbarStatus = 'error'
+            this.snackbar = true
+            this.$log.error('page \'@/pages/sites\' -> post req error')
+        }
+
+		this.$Progress.finish()
+	},
+
 	componentReady (name) {
+		if (name === 'features') this.getFeaturesKeys()
 		return this.components_status[name] = false
 	},
 
@@ -194,6 +216,7 @@ export default {
 		siteEditPrimary,
 		siteEditRate,
 		siteEditScreens,
+		siteEditFeatures,
 		seoEdit
 	},
 	/**

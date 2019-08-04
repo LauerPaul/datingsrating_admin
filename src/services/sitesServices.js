@@ -37,24 +37,6 @@ export default {
 	},
 
 	/**
-	*   Запрос списка сайтов
-	*   @method updateSitesSeo
-	*   @return {object} - результат
-	**/
-	updateSitesSeo (data) {
-		return axios({
-			url: '/sites/update_sites_seo/',
-			method: 'POST',
-			withCredentials: true,
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			responseType: 'json',
-			data: data
-		})
-	},
-
-	/**
 	*   Запрос сайта
 	*   @method getSites
 	*   @return {object} - результат
@@ -72,6 +54,25 @@ export default {
 	},
 
 	/**
+	*   Запрос списка сайтов
+	*   @method updateSitesSeo
+	*   @return {object} - результат
+	**/
+	updateSitesSeo (data) {
+		return axios({
+			url: '/sites/update_sites_seo/',
+			method: 'POST',
+			withCredentials: true,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			responseType: 'json',
+			data: data
+		})
+	},
+
+
+	/**
 	*   Запрос переключения статуса активности сайта
 	*   @method siteStatusToggle
 	*   @return {object} - результат
@@ -87,6 +88,25 @@ export default {
                 },
                 responseType: 'json',
 				data: data
+		})
+	},
+
+	/**
+	*   Обновить сайт
+	*   @method updateSite
+	*   @return {object} - результат
+	**/
+	updateSite (data) {
+		return axios({
+				url: '/admin/sites/update_site/',
+				method: 'POST',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+					'Content-Type': 'multipart/form-data'
+                },
+                responseType: 'json',
+                data: data
 		})
 	},
 
@@ -128,18 +148,70 @@ export default {
 	},
 
 	/**
-	*   Обновить сайт
-	*   @method updateSite
+	*   Запросить список "Features keys"
+	*   @method getFeaturesKeys
 	*   @return {object} - результат
 	**/
-	updateSite (data) {
+	getFeaturesKeys () {
 		return axios({
-				url: '/admin/sites/update_site/',
+				url: '/sites/get_features_keys/',
+				method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                responseType: 'json'
+		})
+	},
+
+	/**
+	*   Обновить элемент списка "Features keys"
+	*   @method updateFeaturesKey
+	*   @return {object} - результат
+	**/
+	updateFeaturesKey (data) {
+		return axios({
+				url: '/sites/update_features_keys/',
 				method: 'POST',
                 withCredentials: true,
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-					'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                responseType: 'json',
+                data: data
+		})
+	},
+
+	/**
+	*   Запрос на добавление новой записи "Features keys"
+	*   @method addFeaturesKey
+	*   @return {object} - результат
+	**/
+	addFeaturesKey (data) {
+		return axios({
+				url: '/sites/add_features_key/',
+				method: 'POST',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                responseType: 'json',
+                data: data
+		})
+	},
+
+	/**
+	*   Запрос на удаление записи "Features keys"
+	*   @method removeFeatureKey
+	*   @return {object} - результат
+	**/
+	removeFeatureKey (data) {
+		return axios({
+				url: '/sites/remove_features_key/',
+				method: 'POST',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 responseType: 'json',
                 data: data

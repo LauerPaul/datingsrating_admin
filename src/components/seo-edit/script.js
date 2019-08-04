@@ -45,6 +45,10 @@ const data = () => {
 const methods = {
 	setData () {
 		if (this.$store.state.Site.params.log && this.$store.state.Site.params.log.LOG_FUNCS) this.$log.info('component \'@/components/seo-edit\' -> method init');
+		if (!this.seo) {
+			this.$emit('loadData')
+			return false
+		}
 		this.form.id = this.seo.id
 		this.form.title = this.seo.title
 		this.form.url = this.seo.url
@@ -110,7 +114,6 @@ export default {
 		seo: {
 			handler(val){
 				this.setData()
-				console.log('test watch seo');
 			},
 			deep: true
 		}

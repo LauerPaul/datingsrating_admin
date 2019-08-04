@@ -21,22 +21,27 @@
 				v-tabs(fixed-tabs)
 					v-tab
 						v-icon(left) settings
-						|Основное
+						|Primary
 					v-tab
 						v-icon(left) photo_library
-						|Скрины
+						|Screens
+					v-tab
+						v-icon(left) check
+						|Features
 					v-tab
 						v-icon(left) star_half
-						|Рейтинг
+						|Rating
 						span(v-if="rate") &nbsp;({{ rate }})
 
 					v-tab-item
 						v-card-text
 							site-edit-primary(:item="itemPrimary", @sendData="setForm", @componentReady="componentReady", @urlTranslite="urlTranslite")
-
 					v-tab-item
 						v-card-text
 							site-edit-screens(:items="item.screens", @sendData="setForm", @componentReady="componentReady")
+					v-tab-item
+						v-card-text
+							site-edit-features(:keys="features", :items="item.features", @sendData="setForm", @componentReady="componentReady")
 					v-tab-item
 						v-card-text
 							site-edit-rate(:rate="item.rate", :text="item.rate_text", @rateUpdate="setRate", @sendData="setForm", @componentReady="componentReady")

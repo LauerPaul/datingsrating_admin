@@ -26,6 +26,7 @@ import layout from '@/layouts/default'
 // Plugins
 // ===============
 import VueLoggerOptions from "@/plugins/logger_options.js"
+import translite from "@/plugins/translit.js"
 
 
 Vue.config.productionTip = false
@@ -42,6 +43,7 @@ Vue.use(VueProgressBar, {
     height: '2px'
 })
 Vue.use(VueLogger, VueLoggerOptions)
+Vue.use(translite)
 
 // -------------------
 // Axios settings

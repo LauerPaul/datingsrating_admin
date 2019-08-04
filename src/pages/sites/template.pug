@@ -3,9 +3,9 @@
 		v-toolbar(flat)
 			v-toolbar-title Список сайтов
 			v-spacer
-			v-btn.ma-2(outlined, color="primary", medium, @click="newSite", v-if="currentMenu == 'section-list'")
+			v-btn.ma-2(outlined, color="primary", medium, @click.prevent.stop="addMethod", v-if="addBtn")
 				v-icon add
-				|&nbsp;Добавить
+				|&nbsp;{{ addBtnText }}
 
 			<template v-slot:extension>
 				v-tabs(v-model="currentMenu", background-color="transparent", fixed-tabs, slider-color="white")
@@ -17,10 +17,13 @@
 		v-tabs-items(v-model="currentMenu")
 
 			v-tab-item(value="section-list")
-				sitesList(:items="items", @statusToggle="itemStatusToggle", @removeItem="removeItem")
+				sites-list(:items="items", @statusToggle="itemStatusToggle", @removeItem="removeItem")
+
+			v-tab-item(value="section-features")
+				features-list(:items="features", @statusToggle="featuresItemStatusToggle", @loadData="getFeaturesKeys", @addNewItem="addNewFeaturesKey", @removeItem="removeFeatureKey", @updateItem="updateFeatureKey")
 
 			v-tab-item(value="section-seo")
-				seo-edit(:seo="seo", @submit_form="updateSitesSeo", :descs="seoDescs")
+				seo-edit(:seo="seo", @submit_form="updateSitesSeo", :descs="seoDescs", @loadData="getPageSeoData")
 
 
 	v-snackbar(v-model="snackbar", :bottom="true", :timeout="6000", :color="snackbarStatus", :multi-line="true")
