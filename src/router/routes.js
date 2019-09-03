@@ -11,6 +11,8 @@ import home from '@/pages/home'
 import email from '@/pages/email'
 import sites from '@/pages/sites'
 import site from '@/pages/site-edit'
+import reviews from '@/pages/reviews'
+import review from '@/pages/review-edit'
 
 const routes = [
 	{	
@@ -58,6 +60,26 @@ const routes = [
 				path: ':id',
 				name: 'site',
 				component: site
+			}
+		]
+	},
+	{
+		path: '/reviews',
+		name: 'reviews',
+		component: reviews,
+        meta: {
+            isAuth: true,
+        },
+	},
+	{
+		path: '/review',
+		component: review,
+		redirect: 'reviews',
+        children: [
+        	{
+				path: ':id',
+				name: 'review',
+				component: review
 			}
 		]
 	},

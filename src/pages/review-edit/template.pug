@@ -1,0 +1,36 @@
+.sites-page-wrapper
+	v-card(v-if="item")
+		v-toolbar(flat)
+			v-toolbar-title Редактирование отзыва
+			v-subheader ({{ item.name }} - ID {{ item.id }})
+			v-spacer
+			<template v-slot:extension>
+				v-tabs(v-model="currentMenu", background-color="transparent", fixed-tabs, slider-color="white")
+					v-tab(v-for="item in tabs", :key="item.href", :href="'#section-' + item.href", :class="currentMenu == item.href ? 'primary--text' : ''") 
+						v-icon(medium) {{ item.icon }}
+						|&nbsp;{{ item.name }}
+			</template>
+
+		v-tabs-items(v-model="currentMenu")
+			v-divider
+			v-tab-item(value="section-primary")
+				review-edit-primary(:item="itemPrimary")
+
+
+				v-card-text
+					v-container(grid-list-xl)
+						v-layout(wrap)
+							v-flex(xs12, sm12)
+								.text-right
+									v-btn(color="error", dark, :to="{name: 'sites'}", style="margin-right: 16px;")
+										|&nbsp;ОТМЕНА
+
+									v-btn(color="green", dark, @click.prevent.stop="sendForm")
+										v-icon(small) save
+										|&nbsp;СОХРАНИТЬ
+
+
+	v-snackbar(v-model="snackbar", :bottom="true", :timeout="6000", :color="snackbarStatus", :multi-line="true")
+		strong {{ message }}
+		v-btn(color="white", @click="snackbar = false", fab, icon, small)
+			v-icon close

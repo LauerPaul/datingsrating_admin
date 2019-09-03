@@ -1,0 +1,15 @@
+div(v-if="form")
+	v-container(grid-list-xl)
+		v-layout(wrap)
+			v-flex(xs12, sm8)
+				v-text-field(v-model="form.name", label="Имя автора отзыва", required)
+			v-flex(xs12, sm4)
+				v-menu(ref="menuDate", v-model="menuDate", :close-on-content-click="false", transition="scale-transition", offset-y, full-width, max-width="290px", min-width="290px")
+					<template v-slot:activator="{ on }">
+						v-text-field(v-model="DateFormatted", label="Дата", hint="Формат - MM/DD/YYYY",		persistent-hint, prepend-icon="event", @blur="form.date = parseDate(DateFormatted)"
+						v-on="on")
+					</template>
+					v-date-picker(v-model="form.date", no-title, @input="menuDate = false")
+
+			v-flex(xs12, sm12)
+				v-switch(v-model="active", label="Отзыв виден на сайте")

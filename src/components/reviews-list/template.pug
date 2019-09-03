@@ -1,0 +1,42 @@
+v-card(flat, v-if="items")
+	v-card-text
+		v-subheader Список "Reviews"
+
+		v-container(grid-list-xl)
+			v-layout(wrap)
+				v-flex(xs12, sm12, v-if="items")
+					v-data-table.elevation-1(v-if="items", :headers="headers", :items="items", sort-by="id")
+
+						<template v-slot:item.active="props">
+							v-switch.ma-4(v-model="props.item.active", @change
+							="itemStatusToggle(props)")
+						</template>
+
+						<template v-slot:item.action="{ item }">
+							v-btn(icon, small,  :to="{ name: 'review', params: { id: item.id }}", style="text-decoration:none;")
+								v-icon(color="primary") edit
+							v-btn(icon, small, style="text-decoration:none;", @click="selectItemID=item.id; dialogRemove=true")
+								v-icon(medium, color="error") delete
+						</template>
+
+						<template v-slot:no-data>Нет данных</template>
+	
+	v-dialog(v-model="dialog", persistent, max-width="600px")
+		feature-key-edit(@close="dialogClose", :item="selectItem", @addNew="addNewItem", @updateItem="updateItem")
+
+	v-dialog(v-model="dialogRemove", persistent, max-width="600px")
+		v-card(flat, v-if="form")
+			v-card-title
+				v-toolbar-title Подтвердите действие
+				v-spacer
+			v-card-text
+				v-container(grid-list-xl)
+					v-layout(wrap)
+						v-flex(xs12, sm12) Удалить запись - ID {{ selectItemID }} ?
+			v-card-actions
+				v-spacer
+				v-btn(color="green darken-1", text, @click="dialogRemove=false; selectItem=null") Нет
+				v-btn(color="red darken-1", text, @click="removeItem") Да
+
+v-overlay(v-else, :value="!items")
+	v-progress-circular(indeterminate, size="64")
